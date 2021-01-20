@@ -27,3 +27,5 @@ PUT:http://localhost:8080/api/location
 GET:http://localhost:8080/api/location?longitude=30&latitude=20
 
 DELETE:http://localhost:8080/api/location?longitude=30&latitude=20
+
+GET:http://localhost:8080/v2/api-docs(Swagger)
