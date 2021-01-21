@@ -13,6 +13,7 @@ import com.sparity.temparature.config.RestTemplateClient;
 import com.sparity.temparature.dto.LocationInfo;
 import com.sparity.temparature.model.Location;
 import com.sparity.temparature.repository.LocationRepository;
+import com.sparity.temparature.util.CommonUtils;
 
 @Service
 public class LocationService {
@@ -27,11 +28,12 @@ public class LocationService {
 	public Location saveLocation(Location location,HttpServletRequest request) {			
 		Location loc = locationRepository.findByLonAndLat(location.getLon(),location.getLat());
 		if(loc != null) {
-			location.setTemparature(loc.getTemparature());
+			//location.setTemparature(loc.getTemparature());
+			return loc;
 		}else {
 			LocationInfo locationInfo = client.getLocation(request);
 			if(locationInfo != null) {
-				BeanUtils.copyProperties(locationInfo, location);
+				CommonUtils.copyNonNullProperties(locationInfo, location);
 			}
 		}	
 		return locationRepository.save(location);
@@ -40,7 +42,7 @@ public class LocationService {
 		Location loc = locationRepository.findByLonAndLat(location.getLon(),location.getLat());
 		if(loc != null) {
 			location.setEntityId(loc.getEntityId());
-			BeanUtils.copyProperties(location, loc);
+			CommonUtils.copyNonNullProperties(location, loc);
 		}	
 		return locationRepository.save(loc);
 	}
@@ -69,7 +71,5 @@ public class LocationService {
 	public List<Location> getLocations() {
 		return (List<Location>) locationRepository.findAll();
 	}
-
 	
-
 }
