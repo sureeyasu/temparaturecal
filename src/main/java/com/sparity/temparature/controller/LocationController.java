@@ -29,7 +29,7 @@ public class LocationController {
 		return service.saveLocation(location,request);
 	}
 	@GetMapping
-	private Location getLocationByLongitudeAndLatitude(@RequestParam(value ="longitude")String longitude,@RequestParam(value ="latitude")String latitude){
+	private Object getLocationByLongitudeAndLatitude(@RequestParam(value ="longitude")String longitude,@RequestParam(value ="latitude")String latitude){
 		return service.getLocationByLongitudeAndLatitude(longitude,latitude);
 	}
 	@DeleteMapping

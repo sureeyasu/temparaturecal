@@ -1,12 +1,15 @@
 package com.sparity.temparature.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.sparity.temparature.config.RestTemplateClient;
@@ -25,7 +28,8 @@ public class LocationService {
 	private RestTemplateClient client;
 
 	
-	public Location saveLocation(Location location,HttpServletRequest request) {			
+	public Location saveLocation(Location location,HttpServletRequest request) {
+		
 		Location loc = locationRepository.findByLonAndLat(location.getLon(),location.getLat());
 		if(loc != null) {
 			//location.setTemparature(loc.getTemparature());
@@ -46,8 +50,13 @@ public class LocationService {
 		}	
 		return locationRepository.save(loc);
 	}
-	public Location getLocationByLongitudeAndLatitude(String longitude,String latitude) {
+	public Object getLocationByLongitudeAndLatitude(String longitude,String latitude) {
 		Location location = locationRepository.findByLonAndLat(longitude,latitude);
+		if(location == null) {
+			Map<String,String> keyValue = new HashMap<String,String>();
+			keyValue.put("message", "no data");
+			return new ResponseEntity<Object>(keyValue,HttpStatus.EXPECTATION_FAILED);
+		}
 		return location;
 	}
 	
