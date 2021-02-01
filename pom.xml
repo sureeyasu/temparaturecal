@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.2.RELEASE</version>
+		<version>2.3.0.RELEASE</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sparity.temparature</groupId>
@@ -17,29 +17,58 @@
 
 	<properties>
 		<java.version>1.8</java.version>
+		<springfox-version>2.9.2</springfox-version>
+		<neo4j.version>3.5.0</neo4j.version>
+		<ogm.version>3.1.0</ogm.version>
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-		</dependency>
-
 		<!--NEO4J DEPENDENCY -->
+		
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-data-neo4j</artifactId>
+	<groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter</artifactId>
+</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
+	
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-data-neo4j</artifactId>
+	</dependency>
+	<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-actuator</artifactId>
+    <version>2.4.2</version>
+</dependency>
+<!-- 		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		<dependency>
-			<!-- Used to send cypher statements to our procedure. -->
+			<groupId>org.neo4j</groupId>
+			<artifactId>neo4j</artifactId>
+			<version>${neo4j.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId> org.neo4j </groupId>
+			<artifactId> neo4j-kernel </artifactId>
+			<version> ${neo4j.version} </version>
+		</dependency>
+		<dependency>
+			<groupId> org.neo4j.app </groupId>
+			<artifactId> neo4j-server </artifactId>
+			<version> ${neo4j.version} </version>
+		</dependency>
+		<dependency>
 			<groupId>org.neo4j.driver</groupId>
 			<artifactId>neo4j-java-driver</artifactId>
 			<version>1.5.1</version>
-		</dependency>
+			<scope>compile</scope>
+		</dependency> -->
 		<!-- Neo4j ogm -->
 		<dependency>
 		    <groupId>org.neo4j</groupId>
@@ -55,6 +84,10 @@
 			<artifactId>neo4j-ogm-bolt-driver</artifactId>
 		</dependency>
 		<!-- Neo4j ogm end -->
+	    <dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.projectlombok</groupId>
