@@ -23,35 +23,33 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RestTemplateClient {
 
-	private static final String IPHEADER = "X-Forwarded-For";
 
-	@Value("${WEATHER_URL}")
-	private transient String weatherUrl;
+	@Value("${TEMP_URL}")
+	private transient String tempUrl;
+	
+	@Value("${WEATHER_APIKEY}")
+	private transient String appid;
 
-	public LocationInfo getLocation(HttpServletRequest request) {
+	public LocationInfo getLocation(String lat,String lon) {
 		try {
 			RestTemplate restTemplate = new RestTemplate();
-			String remoteAddr = request.getHeader(IPHEADER);
-			String path = null;
-			if (StringUtils.isBlank(remoteAddr)) {
-				remoteAddr = request.getRemoteAddr();
-
-			}
-			if (StringUtils.isNotBlank(remoteAddr) && remoteAddr.equals("0:0:0:0:0:0:0:1")) {
-				ResponseEntity<String> ipAddress = restTemplate.getForEntity("https://ipv4.icanhazip.com/",
-						String.class);
-				remoteAddr = ipAddress.getBody().toString().trim();
-			}
-			path = weatherUrl + "?ip=" + remoteAddr;
-
+			//http://api.openweathermap.org/data/2.5/weather?lat=17.38&lon=78.48&appid=5fef085a318d6ed42d65d6fbf06f7a18
+			String path = tempUrl+"?lat="+lat+"&lon="+lon+"&appid="+appid;
 			URI url = new URI(path);
 			ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 			if (response != null) {
 				JSONObject json = new JSONObject(response.getBody().toString());
-				Gson g = new GsonBuilder().setDateFormat("yyyy-MM-dd hh:mm").create();
-				Current current = g.fromJson(json.optString("current").toString(), Current.class);
-				LocationInfo location = g.fromJson(json.optString("location").toString(), LocationInfo.class);
-				location.setTemparature(current.getTemperature());
+				String  name = json.getString("name");
+				JSONObject main =(JSONObject)json.get("main");
+				Double temp =(Double)main.get("temp");
+				JSONObject sys = (JSONObject)json.get("sys");
+				String country = sys.getString("country");
+				LocationInfo location = new LocationInfo();				
+				location.setLon(lon);
+				location.setLat(lat);
+				location.setCountry(country);
+				location.setTemparature(String.valueOf(temp-273.15) );
+				location.setName(name);
 				return location;
 			}
 		} catch (Exception e) {

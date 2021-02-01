@@ -26,7 +26,7 @@ public class LocationController {
 	
 	@PostMapping
 	private Location saveLocation(@RequestBody Location location,HttpServletRequest request){
-		return service.saveLocation(location,request);
+		return service.saveLocation(location);
 	}
 	@GetMapping
 	private Object getLocationByLongitudeAndLatitude(@RequestParam(value ="longitude")String longitude,@RequestParam(value ="latitude")String latitude){
@@ -40,18 +40,6 @@ public class LocationController {
 	private Location updateLocationByLongitudeAndLatitude(@RequestBody Location location){
 		return service.updateLocation(location);
 	}
-	
-	/*@GetMapping
-	private List<Location> getAllLocations(){
-		return service.getLocations();
-	}
-
-	@GetMapping("/{id}")
-	private Location getLocationById(@PathVariable Long id){
-		return service.getLocationById(id);
-	}
-	*/
-	
 	@DeleteMapping("/{id}")
 	private Location deleteLocation(@PathVariable Long id){
 		return service.deleteLocation(id);

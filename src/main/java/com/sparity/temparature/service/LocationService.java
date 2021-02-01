@@ -8,6 +8,7 @@ import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -26,16 +27,15 @@ public class LocationService {
 	
 	@Autowired
 	private RestTemplateClient client;
+	
 
 	
-	public Location saveLocation(Location location,HttpServletRequest request) {
-		
+	public Location saveLocation(Location location) {		
 		Location loc = locationRepository.findByLonAndLat(location.getLon(),location.getLat());
 		if(loc != null) {
-			//location.setTemparature(loc.getTemparature());
 			return loc;
 		}else {
-			LocationInfo locationInfo = client.getLocation(request);
+			LocationInfo locationInfo = client.getLocation(location.getLat(),location.getLon());
 			if(locationInfo != null) {
 				CommonUtils.copyNonNullProperties(locationInfo, location);
 			}
