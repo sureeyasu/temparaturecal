@@ -63,6 +63,8 @@ docker run --name temparaturecal --network="host.docker.internal" -p8080:8080 te
 
 https://towardsdatascience.com/weather-data-and-forecasts-from-open-weather-api-1636691d5ba
 
+https://github.com/docker/for-win/issues/667
+
 WARNING: The requested image's platform (linux/amd64) does not match the detected host platform (windows/amd64) and no specific platform was requested
 
 docker: Error response from daemon: failed to create endpoint temparaturecal on network nat: Windows does not support host IP addresses in NAT settings.

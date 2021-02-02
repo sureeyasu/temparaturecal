@@ -9,7 +9,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 /**
  * @author Suresh
  */
-@SpringBootApplication(exclude = {Neo4jDataAutoConfiguration.class})
+//@SpringBootApplication(exclude = {Neo4jDataAutoConfiguration.class})
+@SpringBootApplication
 @EnableSwagger2
 public class SampleTemparature {
 

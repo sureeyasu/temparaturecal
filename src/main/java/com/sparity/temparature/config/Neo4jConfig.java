@@ -8,9 +8,9 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 import org.springframework.data.neo4j.transaction.Neo4jTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@Configuration
+/*@Configuration
 @EnableNeo4jRepositories(basePackages = "com.sparity.temparature.repository")
-@EnableTransactionManagement
+@EnableTransactionManagement*/
 public class Neo4jConfig {
 
 	/*@Bean
@@ -31,7 +31,7 @@ public class Neo4jConfig {
     @Bean
     public Neo4jTransactionManager transactionManager() {
         return new Neo4jTransactionManager(sessionFactory());
-    }*/
+    }
 	
 	@Value("${NEO4J_URL}")
 	String NEO4J_URL;
@@ -63,5 +63,5 @@ public class Neo4jConfig {
 	@Bean
 	public Neo4jTransactionManager transactionManager() {
 		return new Neo4jTransactionManager(this.sessionFactory());
-	}
+	}*/
 }
